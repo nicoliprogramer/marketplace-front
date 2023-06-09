@@ -1,5 +1,7 @@
 import React from "react";
 import { Container, Button, Grid, Paper, Box, Typography, TextField, Stack } from "@mui/material";
+import { useNotification } from "../../context/notification.context";
+import { LoginValidate } from "../../utils/validateForm";
 
 type LoginType = { 
     username: string,
@@ -7,6 +9,9 @@ type LoginType = {
 }
 
 export const LoginPage: React.FC<{}> = () => {
+    const {getError, getSuccess} = useNotification()
+
+
     const [loginData, setLoginData] = React.useState<LoginType>({
         username: "",
         password: ""
@@ -18,7 +23,11 @@ export const LoginPage: React.FC<{}> = () => {
 
     const handleSubmit = (e: React.FormEvent<HTMLInputElement>) => {
         e.preventDefault()
-        console.log(loginData)        
+        LoginValidate.validate(loginData).then(() => {
+        getSuccess(JSON.stringify(loginData))
+        }).catch(error => {
+            getError(error.message)
+        })
     }
 
     return (
@@ -29,8 +38,8 @@ export const LoginPage: React.FC<{}> = () => {
                         <Typography sx={{mt:1, mb:1}} variant="h4">Iniciar Sesión</Typography>
                         <Box component="form" onSubmit={handleSubmit}>
                             <Stack spacing={2}>
-                                <TextField name="username" margin="normal" type="text" fullWidth label="email" sx={{mt:2, mb:1.5}} required onChange={dataLogin}/>
-                                <TextField name="password" margin="normal" type="password" fullWidth label="password"sx={{mt:1.5, mb:1.5}} required onChange={dataLogin}/>
+                                <TextField name="username" margin="normal" type="text" fullWidth label="email" sx={{mt:2, mb:1.5}} onChange={dataLogin}/>
+                                <TextField name="password" margin="normal" type="password" fullWidth label="password"sx={{mt:1.5, mb:1.5}} onChange={dataLogin}/>
                             </Stack>
                             <Button fullWidth type="submit" variant="contained" sx={{mt:1.5, mb:3}}>Iniciar Sesión</Button>
                         </Box>

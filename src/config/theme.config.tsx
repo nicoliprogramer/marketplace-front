@@ -11,7 +11,9 @@ export enum themePalette {
     FONT_GLOBAL = "'JetBrains Mono', monospace",
     // Alert styles
     ERROR_MAIN = "#f44336",
-    BG_ERROR_MAIN = "rgba(224,67,54,0.1)"
+    BG_ERROR_MAIN = "rgba(224,67,54,0.1)",
+    SUCCESS_MAIN = "#66bb6a",
+    BG_SUCCESS_MAIN = "rgba(102,287,106,0.1)"
 }
 
 const theme = createTheme({
@@ -48,6 +50,10 @@ const theme = createTheme({
                 standardError: {
                     border: `1px solid ${themePalette.ERROR_MAIN}`,
                     background: themePalette.BG_ERROR_MAIN
+                },
+                standardSuccess: {
+                    border: `1px solid ${themePalette.SUCCESS_MAIN}`,
+                    background: themePalette.BG_SUCCESS_MAIN
                 }
             }
         }
