@@ -1,5 +1,5 @@
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
-import React from "react";
+import { FC} from "react";
 
 type ThemeProp = {
     children: JSX.Element
@@ -60,7 +60,7 @@ const theme = createTheme({
     }
 })
 
-export const ThemeConfig: React.FC<ThemeProp> = ({children}) => {
+export const ThemeConfig: FC<ThemeProp> = ({children}) => {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />

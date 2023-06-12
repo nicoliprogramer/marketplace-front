@@ -1,4 +1,4 @@
-import React from "react"
+import { FC} from "react";
 import { Box, Grid, Typography, Divider} from "@mui/material";
 
 type HeaderProps = {
@@ -7,7 +7,7 @@ type HeaderProps = {
     element?: React.ReactNode | null
 }
 
-export const HeaderComponent: React.FC<HeaderProps>= ({title,description, element}) => {
+export const HeaderComponent: FC<HeaderProps>= ({title,description, element}) => {
     return (
         <div>
             <Box sx={{width:"100%", height:"350px"}}>

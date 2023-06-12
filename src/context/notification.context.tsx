@@ -1,4 +1,4 @@
-import React from "react"
+import { createContext, FC, useState,useContext} from "react";
 import { Notification } from "../components";
 import { AlertColor } from "@mui/material";
 
@@ -7,12 +7,12 @@ type ContextProps = {
     getSuccess: (msg: string) => void
 }
 
-const NotificationContext = React.createContext<ContextProps | null>(null);
+const NotificationContext = createContext<ContextProps | null>(null);
 
-export const NotificationProvider: React.FC<{children: JSX.Element}> = ({children}) => {
-    const [msg, setMsg] = React.useState("");
-    const [open, setOpen] = React.useState(false);
-    const [severity, setSeverity] = React.useState<AlertColor | undefined>(undefined)
+export const NotificationProvider: FC<{children: JSX.Element}> = ({children}) => {
+    const [msg, setMsg] = useState("");
+    const [open, setOpen] = useState(false);
+    const [severity, setSeverity] = useState<AlertColor | undefined>(undefined)
 
     const handleClose = () => {
         setOpen(false)
@@ -41,7 +41,7 @@ export const NotificationProvider: React.FC<{children: JSX.Element}> = ({childre
 }
 
 export const useNotification = () => {
-    const context = React.useContext(NotificationContext)
+    const context = useContext(NotificationContext)
     if(!context) throw new Error("No existe contexto")
     return context
 }

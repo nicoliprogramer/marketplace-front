@@ -1,4 +1,5 @@
-import React from "react";
+import  React from "react";
+import { useState, FC} from "react";
 import { Container, Button, Grid, Paper, Box, Typography, TextField, Stack } from "@mui/material";
 import { useNotification } from "../../context/notification.context";
 import { LoginValidate } from "../../utils/validateForm";
@@ -8,11 +9,11 @@ type LoginType = {
     password: string
 }
 
-export const LoginPage: React.FC<{}> = () => {
+export const LoginPage: FC<{}> = () => {
     const {getError, getSuccess} = useNotification()
 
 
-    const [loginData, setLoginData] = React.useState<LoginType>({
+    const [loginData, setLoginData] = useState<LoginType>({
         username: "",
         password: ""
     })

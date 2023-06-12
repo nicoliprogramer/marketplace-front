@@ -1,8 +1,8 @@
-import React from "react";
+import { FC} from "react";
 import { AppBar, Box, Toolbar,Container, Grid, Typography, Button, Stack } from "@mui/material";
 import {useNavigate} from "react-router-dom"
 
-export const NavBar: React.FC<{}> = () => {
+export const NavBar: FC<{}> = () => {
    const navigate = useNavigate()
 
     return(
