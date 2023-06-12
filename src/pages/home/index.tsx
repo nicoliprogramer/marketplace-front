@@ -5,7 +5,7 @@ import { TypeCharacter } from "./interface/character.interface";
 import { useState, useEffect, FC} from "react";
 
 
-export const HomePage: FC<{}> = () => {
+export const HomePage: FC = () => {
     const [page, setPage] = useState(1)
     const [count, setCount] = useState(1)
     const [allCharacters, setAllCharacters]= useState<TypeCharacter[]>([])
@@ -32,7 +32,7 @@ export const HomePage: FC<{}> = () => {
             <HeaderComponent title="Hola mundillo" description="Estas en un buen lugar" element={<Button fullWidth variant="contained">PRESS</Button>}
             />
             {loading ? (
-                <Box sx={{display: "flex", justifyContent: "center", mt: 4}}>
+                <Box sx={{display: "flex", justifyContent: "left", mt: 4}}>
                     <CircularProgress/>
                 </Box>
             ) :
