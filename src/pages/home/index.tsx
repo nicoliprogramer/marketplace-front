@@ -43,7 +43,7 @@ export const HomePage: FC = () => {
                         <Grid sx={{my: 2}}container spacing={2} direction="row">
                             {allCharacters?.map((character) => (
                                 <Grid item xs={2}>
-                                    <CardComponent key={character.id} image={character.image} name={character.name} status={character.status} species={character.species}/>
+                                    <CardComponent id={character.id} key={character.id} image={character.image} name={character.name} status={character.status} species={character.species}/>
                                 </Grid>
                             ))}
                         </Grid>

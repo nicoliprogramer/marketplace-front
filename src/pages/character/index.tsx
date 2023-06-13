@@ -18,6 +18,7 @@ export const CharacterPage: FC = () => {
         setLoading(true)
         characters.getById({id}).then((r) => {
             setCharacter(r.data);
+            
             setTimeout(() => setLoading(false), 1000)             
                         
         }).catch((e) => {
@@ -37,7 +38,7 @@ export const CharacterPage: FC = () => {
                     <Grid item xs={6}>
                         <Typography variant="h1">{character?.name}</Typography>
                         <Divider/>
-                        <Typography variant="h6">{character?.origin.name}</Typography>
+                        <Typography variant="h6">{character?.gender}</Typography>
                         <Box sx={{mt: 2}}>
                             <Chip color="success" variant="outlined" label={character?.status} />   
                         </Box>
