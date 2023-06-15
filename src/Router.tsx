@@ -3,7 +3,7 @@ import { HomePage } from "./pages/home";
 import { LoginPage } from "./pages/login";
 import { RouterLayout } from "./common/RouterLayout";
 import { FC} from "react";
-import { CharacterPage } from "./pages/character";
+import { CharacterPage } from "./pages/specificCharacter";
 
 export const AppRouter: FC<{}> = () => {
     return (
