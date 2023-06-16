@@ -1,61 +1,38 @@
-import { Container, Button, Grid,Box, CircularProgress, Pagination } from "@mui/material";
-import { CardComponent, HeaderComponent } from "../../components";
-import { characters } from "../../api/characters";
-import { TypeCharacter } from "./interface/character.interface";
-import { useState, useEffect, FC} from "react";
-
+import {FC} from "react"
+import{useEffect,useState} from "react"
+import { Box, Container, Grid, Typography, Divider, CardMedia} from "@mui/material";
 
 export const HomePage: FC = () => {
-    const [page, setPage] = useState(1)
-    const [count, setCount] = useState(1)
-    const [allCharacters, setAllCharacters]= useState<TypeCharacter[]>([])
-    const [loading, setLoading] = useState<boolean>(true)
 
     useEffect(() => {
-            setLoading(true)
-            characters.getAll({page}).then((r)=> {
-                setCount(r.data.info.pages);
-                setAllCharacters(r.data.results);
-                setTimeout(() => setLoading(false), 1000)     
-            }).catch((e)=> {
-                console.error(e)
-            })
-        },[page])
+        
+    },[])
+    
+    return <>
+        
+        <Box sx={{width: "100%"}}>
+            <Container maxWidth="xl">
+                <Grid sx={{mt:2}}container columnSpacing={1} display="flex" justifyContent="center" alignItems="center">
+                    <Grid item xs={6}>
+                        <Typography variant="h2">Welcome to Rick and Morty</Typography>
+                        <Divider sx={{mb:6}}/>
 
-        const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-            console.log("value", value);
-            setPage(value)
-        }
-
-    return (
-        <Container maxWidth="xl">
-            <HeaderComponent title="Hola mundillo" description="Estas en un buen lugar" element={<Button fullWidth variant="contained">PRESS</Button>}
-            />
-            {loading ? (
-                <Box sx={{display: "flex", justifyContent: "left", mt: 4}}>
-                    <CircularProgress/>
-                </Box>
-            ) :
-            <>
-            <div>
-                {
-                    allCharacters?.length !== 0 ? (
-                        <Grid sx={{my: 2}}container spacing={2} direction="row">
-                            {allCharacters?.map((character) => (
-                                <Grid item xs={2}>
-                                    <CardComponent id={character.id} key={character.id} image={character.image} name={character.name} status={character.status} species={character.species}/>
-                                </Grid>
-                            ))}
-                        </Grid>
-                    ) : ""
-                }
-            </div>
-            <Box sx={{width: "100%", display: "flex", justifyContent: "center"}}>
-            <Pagination variant="outlined" color="primary" count={count} page={page} onChange={handleChange} sx={{mb: 3}} size="large"/>
-            </Box>
-            </>
-               
-            } 
-        </Container>
-    )
+                        
+                        <CardMedia 
+                            component="img"
+                            height="194"
+                            image={"https://pbs.twimg.com/media/DfMLQ80U8AAzQPd.jpg"}
+                            alt="Paella dish"
+                        />
+                        <Typography variant="h5" sx={{mt:1}}>Father, am I bad? you are worse You're smart.</Typography>
+                        
+                    </Grid>
+                    
+                </Grid>
+                
+                
+            </Container>
+        </Box>
+        
+    </>
 }

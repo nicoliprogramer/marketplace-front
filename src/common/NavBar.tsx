@@ -13,13 +13,13 @@ export const NavBar: FC<{}> = () => {
                     <Container maxWidth="xl">
                         <Grid container direction="row" justifyContent="space-between" alignItems="center">
                             <Grid item>
-                            <Typography>Coderr</Typography>
+                            <Typography>Rick and Morty</Typography>
                             </Grid>
                             <Grid item>
                                 <Stack direction="row" spacing={2}>
+                                    <Button variant="contained" onClick={()=>{navigate("/characters")}}>characters</Button>
+                                    <Button variant="contained" onClick={()=>{navigate("/episodes")}}>episodes</Button>
                                     <Button variant="contained" onClick={()=>{navigate("/cart")}}><ShoppingCartIcon/></Button>
-                                    <Button variant="contained" onClick={()=>{navigate("/login")}}>Login</Button>
-                                    <Button variant="outlined">Register</Button>
                                 </Stack>
                             </Grid>
                         </Grid>
