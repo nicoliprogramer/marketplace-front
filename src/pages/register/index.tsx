@@ -1,55 +1,97 @@
-import  React from "react";
-import { useState, FC} from "react";
-import { Container, Button, Grid, Paper, Box, Typography, TextField, Stack, Divider, Link } from "@mui/material";
-import { useNotification } from "../../context/notification.context";
-import { LoginValidate } from "../../utils/validateForm";
+import { Container, Button, Grid, Paper, Box, Typography, TextField, Stack, Divider, Link, FormControlLabel, FormGroup, FormHelperText } from "@mui/material";
+import { useForm, SubmitHandler } from 'react-hook-form';
+import React, { useState, FC, useEffect} from "react";
+import { literal, object, string, TypeOf } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { LoadingButton } from '@mui/lab';
+import Checkbox from '@mui/material/Checkbox';
 
-type LoginType = { 
-    username: string,
-    password: string
-}
+const registerSchema = object({
+  name: string()
+    .nonempty('Name is required')
+    .max(32, 'Name must be less than 32 characters'),
+  email: string().nonempty('Email is required').email('Email is invalid'),
+  password: string()
+    .nonempty('Password is required')
+    .min(8, 'Password must be more than 8 characters')
+    .max(32, 'Password must be less than 32 characters'),
+  passwordConfirm: string().nonempty('Please confirm your password'),
+  terms: literal(true, {
+    invalid_type_error: 'Accept Terms is required',
+  }),
+}).refine((data) => data.password === data.passwordConfirm, {
+  path: ['passwordConfirm'],
+  message: 'Passwords do not match',
+});
+
+type RegisterInput = TypeOf<typeof registerSchema>;
+
 
 export const RegisterPage: FC<{}> = () => {
-    const {getError, getSuccess} = useNotification()
+  const [loading, setLoading] = useState(false);
 
+    const {
+    register,
+    formState: { errors, isSubmitSuccessful },
+    reset,
+    handleSubmit,
+  } = useForm<RegisterInput>({
+    resolver: zodResolver(registerSchema),
+  });
 
-    const [loginData, setLoginData] = useState<LoginType>({
-        username: "",
-        password: ""
-    })
-
-    const dataLogin = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setLoginData({...loginData, [e.target.name]: e.target.value})
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
     }
+  }, [isSubmitSuccessful, reset]);
 
-    const handleSubmit = (e: React.FormEvent<HTMLInputElement>) => {
-        e.preventDefault()
-        LoginValidate.validate(loginData).then(() => {
-        getSuccess(JSON.stringify(loginData))
-        }).catch(error => {
-            getError(error.message)
-        })
-    }
 
+  const onSubmitHandler: SubmitHandler<RegisterInput> = (values) => {
+    console.log(values);
+  };
     return (
         <Container maxWidth="sm">
             <Grid container direction="column" alignItems="center" justifyContent="center" sx={{minHeight: "100vh"}}>
                 <Grid item>
                     <Paper sx={{padding:"1.2em", borderRadius:"0.5em"}}>
                         <Typography sx={{mt:1, mb:1}} variant="h4">Sign Up</Typography>
-                        <Box component="form" onSubmit={handleSubmit}>
+                        <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit(onSubmitHandler)}>
                             <Stack spacing={4}>
-                                <TextField name="username" margin="normal" type="text" fullWidth label="username" sx={{mt:2, mb:0}} onChange={dataLogin}/>
-                                <TextField name="email" margin="normal" type="email" fullWidth label="email" sx={{mt:2, mb:1.5}} onChange={dataLogin}/>
-                                <TextField name="password" margin="normal" type="password" fullWidth label="password"sx={{mt:1.5, mb:1.5}} onChange={dataLogin}/>
-                                <TextField name="confirmPassword" margin="normal" type="password" fullWidth label="confirm password"sx={{mt:1.5, mb:1.5}} onChange={dataLogin}/>
+                                <TextField margin="normal" type="text" fullWidth label="Username" sx={{mt:2, mb:0}} required error={!!errors['name']} helperText={errors['name'] ? errors['name'].message : ''} {...register('name')}/>
+                                <TextField margin="normal" type="email" fullWidth label="Email" sx={{mt:2, mb:1.5}} required error={!!errors['email']} helperText={errors['email'] ? errors['email'].message : ''} {...register('email')}/>
+                                <TextField margin="normal" type="password" fullWidth label="Password"sx={{mt:1.5, mb:1.5}} required error={!!errors['password']} helperText={errors['password'] ? errors['password'].message : ''} {...register('password')}/>
+                                <TextField margin="normal" type="password" fullWidth label="Confirm password"sx={{mt:1.5, mb:1.5}} required error={!!errors['passwordConfirm']} helperText={errors['passwordConfirm'] ? errors['passwordConfirm'].message : ''} {...register('passwordConfirm')}/>
+                                <FormGroup>
+                                    <FormControlLabel
+                                         control={<Checkbox required />}
+                                         {...register('terms')}
+                                                 label={
+                                                <Typography color={errors['terms'] ? 'error' : 'inherit'}>
+                                                 Accept Terms and Conditions
+                                                </Typography>
+                                                         }
+                                                         />
+                                                <FormHelperText error={!!errors['terms']}>
+                                                     {errors['terms'] ? errors['terms'].message : ''}
+                                            </FormHelperText>
+                                    </FormGroup>
                             </Stack>
                             <Divider sx={{mb:2}}/>
                             <Typography sx={{mt:1, mb:1}} fontSize="12px" variant="body2"><Link href="/login">Do you already have an account? Enter here.</Link></Typography>
-                            <Button fullWidth type="submit" variant="contained" sx={{mt:1.5, mb:3}}>Register</Button>
+                            {/* <Button fullWidth type="submit" variant="contained" sx={{mt:1.5, mb:3}}>
+                            Register
+                            </Button> */}
+                            <LoadingButton
+                                variant='contained'
+                                fullWidth
+                                type='submit'
+                                loading={loading}
+                                sx={{ py: '0.8rem', mt: '1rem' }}>
+                                Register
+                            </LoadingButton>
                         </Box>
                     </Paper>
-                </Grid>
+                </Grid> 
             </Grid>
         </Container>
     )
