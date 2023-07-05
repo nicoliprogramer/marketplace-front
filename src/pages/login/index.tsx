@@ -11,7 +11,8 @@ type LoginType = {
 }
 
 export const LoginPage: FC<{}> = () => {
-   const navigate = useNavigate()
+
+const navigate = useNavigate()
 
     const {getError, getSuccess} = useNotification()
 

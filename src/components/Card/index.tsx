@@ -20,7 +20,7 @@ export const CardComponent: FC<CardProps> = ({image, name, status, species, id})
                 component="img"
                 height="194"
                 image={image}
-                alt="Paella dish"
+                alt="Characters"
             />
             <CardContent>
                 <Typography variant="h4" sx={{mb:1.5}}>{name}</Typography>

@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "name": "Rick",
+    "price": 12.55,
+    "image": "https://juguetesdecoleccion.com/wp-content/uploads/muneco-rick-and-morty-rick.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Morty",
+    "price": 12.55,
+    "image": "https://juguetesdecoleccion.com/wp-content/uploads/muneco-rick-and-morty-morty.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Mr. Poopy Butthole",
+    "price": 8.0,
+    "image": "https://juguetesdecoleccion.com/wp-content/uploads/muneco-rick-and-morty-mr-poopy-butthole.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Snowball",
+    "price": 5.33,
+    "image": "https://juguetesdecoleccion.com/wp-content/uploads/muneco-rick-and-morty-snowball.jpg"
+  },
+  {
+    "id": 5,
+    "name": "Birdperson",
+    "price": 5.33,
+    "image": "https://juguetesdecoleccion.com/wp-content/uploads/muneco-rick-and-morty-birdperson.jpg"
+  },
+  {
+    "id": 6,
+    "name": "Mr. Meeseeks",
+    "price": 6.0,
+    "image": "https://juguetesdecoleccion.com/wp-content/uploads/muneco-rick-and-morty-mr-meeseeks.jpg"
+  }
+]

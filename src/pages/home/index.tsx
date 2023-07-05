@@ -1,14 +1,8 @@
 import {FC} from "react"
-import{useEffect,useState} from "react"
 import { Box, Container, Grid, Typography, Divider, CardMedia} from "@mui/material";
 
 export const HomePage: FC = () => {
-
-    useEffect(() => {
-        
-    },[])
-    
-    return <>
+    return( <>
         
         <Box sx={{width: "100%"}}>
             <Container maxWidth="xl">
@@ -34,5 +28,5 @@ export const HomePage: FC = () => {
             </Container>
         </Box>
         
-    </>
+    </>)
 }
