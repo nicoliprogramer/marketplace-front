@@ -1,4 +1,4 @@
-import { Card, CardMedia, CardContent, Typography, CardActions, Button, CardActionArea, Grid, TextField, ButtonGroup, Container} from "@mui/material";
+import { Card, CardMedia, CardContent, Typography, CardActions, Button, CardActionArea, Grid, TextField, ButtonGroup, Container, Divider} from "@mui/material";
 import React, {FC, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import RemoveIcon from "@mui/icons-material/Remove";
@@ -12,7 +12,7 @@ type CardProps = {
 }
 
 export const CardComponent: FC<CardProps> = ({image, name, price, id}) => {
-    const [count, setCount] = useState(1)
+    const [count, setCount] = useState(0)
      const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setCount(Math.max(Number(event.target.value), 1));
     };
@@ -20,7 +20,7 @@ export const CardComponent: FC<CardProps> = ({image, name, price, id}) => {
 
     return(
         
-        <Card sx={{ maxWidth: 1000 }}>
+    <Card sx={{ maxWidth: 345, mb: 1 }} >
       <CardActionArea>
         <CardMedia
           component="img"
@@ -32,7 +32,8 @@ export const CardComponent: FC<CardProps> = ({image, name, price, id}) => {
           <Typography gutterBottom variant="h5" component="div">
             {name}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Divider />
+          <Typography variant="body2" color="text.secondary" mt={1} mb={-1}>
             ${price}
           </Typography>
         </CardContent>
@@ -40,12 +41,16 @@ export const CardComponent: FC<CardProps> = ({image, name, price, id}) => {
       <CardActions>
         
         {count === 0 ? (
-            <Button size="small" color="success" variant="contained">
-          Take to cart
-        </Button>
-        ) : <Grid display="flex" alignItems="center" direction="row" style={{gap: ".5rem "}}>
-                <Grid display="flex" alignItems="center" justifyContent="center" style={{gap: ".5rem "}}>
             <Container>
+            <Grid display="flex" alignItems="center" justifyContent="center">
+            <Button size="small" color="success" variant="contained" onClick={() => setCount((prev) => prev + 1)}>   
+            Take to cart
+            </Button>
+        </Grid>
+        </Container>
+        ) : (<Grid display="flex" alignItems="center" direction="row" style={{gap: ".5rem "}}>
+                <Grid display="flex" alignItems="center" justifyContent="center" style={{gap: ".5rem "}}>
+            <Container sx={{mb: 3}}>
                 <ButtonGroup>
                 <Button
                   onClick={() => setCount((prev) => prev - 1)}
@@ -58,10 +63,15 @@ export const CardComponent: FC<CardProps> = ({image, name, price, id}) => {
                   <AddIcon fontSize="small" />
                 </Button>
                 </ButtonGroup>
+                <Grid sx={{mt: 2}} display="flex" alignItems="center" justifyContent="center">
+                <Button size="small" color="error" variant="contained" onClick={() => setCount(0)}>
+                    Eliminate
+                </Button>
+                </Grid>
             </Container>
                 </Grid>
-                BI
-            </Grid>}
+                
+            </Grid>)}
 
       </CardActions>
     </Card>
