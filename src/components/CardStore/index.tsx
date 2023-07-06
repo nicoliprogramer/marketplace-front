@@ -42,7 +42,7 @@ export const CardComponent: FC<CardProps> = ({image, name, price, id}) => {
         
         {count === 0 ? (
             <Container>
-            <Grid display="flex" alignItems="center" justifyContent="center">
+            <Grid display="flex" alignItems="center" justifyContent="center" sx={{mb: 4}}>
             <Button size="small" color="success" variant="contained" onClick={() => setCount((prev) => prev + 1)}>   
             Take to cart
             </Button>
