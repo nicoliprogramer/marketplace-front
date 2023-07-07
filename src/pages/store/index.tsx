@@ -5,9 +5,9 @@ import { TypeDoll } from "../../pages/store/interface/doll.interface";
 import storeItems from "../../data/items.json"
 import { CardComponent } from "../../components/CardStore";
 
+
 export const StorePage: FC = () => {
     const [allDoll, setAllDoll]= useState<TypeDoll[]>([])
-    
     useEffect(()=> {
          setAllDoll(storeItems) 
     })

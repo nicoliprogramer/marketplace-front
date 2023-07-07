@@ -20,6 +20,7 @@ export const AppRouter: FC<{}> = () => {
                 <Route path="/character/:id" element={<CharacterPage/>}/>
                 <Route path="/store" element={<StorePage/>}/>
             </Route>
+
             <Route path="/login" element={<LoginPage/>}/>
             <Route path="/register" element={<RegisterPage/>}/>
         </Routes>

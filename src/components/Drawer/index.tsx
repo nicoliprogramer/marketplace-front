@@ -13,7 +13,7 @@ import MailIcon from '@mui/icons-material/Mail';
 
 type Anchor = 'top' | 'left' | 'bottom' | 'right';
 
-export default function TemporaryDrawer() {
+export default function ShoppingDrawer() {
   const [state, setState] = useState({
     top: false,
     left: true,

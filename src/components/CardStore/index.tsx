@@ -1,8 +1,10 @@
 import { Card, CardMedia, CardContent, Typography, CardActions, Button, CardActionArea, Grid, TextField, ButtonGroup, Container, Divider} from "@mui/material";
-import React, {FC, useState} from "react";
+import React, {FC, useEffect, useReducer, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
+import { useAppDispatch } from "../../redux/hooks";
+import { addToCart, decrementQuantity, incrementQuantity } from "../../redux/slices/cart.slice";
 
 type CardProps = {
     id: number
@@ -12,12 +14,16 @@ type CardProps = {
 }
 
 export const CardComponent: FC<CardProps> = ({image, name, price, id}) => {
+    let navigate = useNavigate()  
+    const dispatch = useAppDispatch()
+  
     const [count, setCount] = useState(0)
+
      const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setCount(Math.max(Number(event.target.value), 1));
     };
-    let navigate = useNavigate()
 
+    
     return(
         
     <Card sx={{ maxWidth: 345, mb: 1 }} >
@@ -43,7 +49,8 @@ export const CardComponent: FC<CardProps> = ({image, name, price, id}) => {
         {count === 0 ? (
             <Container>
             <Grid display="flex" alignItems="center" justifyContent="center" sx={{mb: 4}}>
-            <Button size="small" color="success" variant="contained" onClick={() => setCount((prev) => prev + 1)}>   
+            <Button size="small" color="success" variant="contained" onClick={() => {setCount((prev) => prev + 1);
+            dispatch(addToCart(1))}}>   
             Take to cart
             </Button>
         </Grid>
@@ -53,13 +60,15 @@ export const CardComponent: FC<CardProps> = ({image, name, price, id}) => {
             <Container sx={{mb: 3}}>
                 <ButtonGroup>
                 <Button
-                  onClick={() => setCount((prev) => prev - 1)}
+                  onClick={() => {setCount((prev) => prev - 1);
+                  dispatch(decrementQuantity(1))}}
                   disabled={count === 1}
                 >
                <RemoveIcon fontSize="small" />
                 </Button>
                 <TextField size="small" onChange={handleChange} value={count} />
-                <Button onClick={() => setCount((prev) => prev + 1)}>
+                <Button onClick={() => {setCount((prev) => prev + 1);
+                dispatch(incrementQuantity(1))}}>
                   <AddIcon fontSize="small" />
                 </Button>
                 </ButtonGroup>
