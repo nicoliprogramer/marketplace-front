@@ -1,10 +1,10 @@
 import { Card, CardMedia, CardContent, Typography, CardActions, Button, CardActionArea, Grid, TextField, ButtonGroup, Container, Divider} from "@mui/material";
-import React, {FC, useEffect, useReducer, useState} from "react";
+import React, {FC, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 import { useAppDispatch } from "../../redux/hooks";
-import { addToCart, decrementQuantity, incrementQuantity } from "../../redux/slices/cart.slice";
+import { addToCart, decrementQuantity, incrementQuantity, removeItem } from "../../redux/slices/cart.slice";
 
 type CardProps = {
     id: number
@@ -73,7 +73,8 @@ export const CardComponent: FC<CardProps> = ({image, name, price, id}) => {
                 </Button>
                 </ButtonGroup>
                 <Grid sx={{mt: 2}} display="flex" alignItems="center" justifyContent="center">
-                <Button size="small" color="error" variant="contained" onClick={() => setCount(0)}>
+                <Button size="small" color="error" variant="contained" onClick={() => {setCount(0);
+                dispatch(removeItem(1))}}>
                     Eliminate
                 </Button>
                 </Grid>
