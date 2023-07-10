@@ -4,7 +4,8 @@ import { Container, Button, Grid, Paper, Box, Typography, TextField, Stack, Link
 import { useNotification } from "../../context/notification.context";
 import { LoginValidate } from "../../utils/validateForm";
 import {useNavigate} from "react-router-dom"
-
+import { useAppDispatch } from "../../redux/hooks";
+import { login } from "../../redux/slices/auth.slice";
 type LoginType = { 
     username: string,
     password: string
@@ -12,7 +13,8 @@ type LoginType = {
 
 export const LoginPage: FC<{}> = () => {
 
-const navigate = useNavigate()
+    const navigate = useNavigate()
+    const dispatch = useAppDispatch()
 
     const {getError, getSuccess} = useNotification()
 
@@ -29,7 +31,8 @@ const navigate = useNavigate()
     const handleSubmit = (e: React.FormEvent<HTMLInputElement>) => {
         e.preventDefault()
         LoginValidate.validate(loginData).then(() => {
-        getSuccess(JSON.stringify(loginData))
+            dispatch(login(loginData))
+        // getSuccess(JSON.stringify(loginData))
         }).catch(error => {
             getError(error.message)
         })

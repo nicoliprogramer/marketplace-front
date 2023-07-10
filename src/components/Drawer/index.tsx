@@ -1,20 +1,30 @@
-import {useState, KeyboardEvent, MouseEvent, Fragment} from 'react';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem/ListItem';
-import {Typography} from '@mui/material'
-
+import {Box, Grid ,Typography, Divider} from '@mui/material'
+import { useAppSelector } from "../../redux/hooks";
+import { items } from '../../redux/slices/cart.slice';
+import { useSelector } from 'react-redux';
 
 export default function ShoppingDrawer() {
   
+  const cart = useAppSelector((state:any)=> state.cart)
+
   return (
         <Box sx={{width: 250}}>
           <List>
-          <ListItem>
-            <Typography>Shopping Cart</Typography>
-          </ListItem>
+            <Grid display="flex" alignItems="center" justifyContent="center">
+              <Grid>
+              <ListItem>
+                <Typography variant='h6'>Shopping Cart</Typography>
+              </ListItem>
+              </Grid>
+              <Grid>
+                <div>
+                {cart.items}
+                </div>
+              </Grid>
+          </Grid>
+          <Divider/>
           </List>
         </Box>
   );

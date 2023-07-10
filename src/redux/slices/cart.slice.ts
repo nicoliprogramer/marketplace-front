@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-interface items {
+export interface items {
     id:       number;
     name:     string;
     image:    string;
@@ -12,36 +12,33 @@ const initialState : Array<items> = []
 
 export const cartSlice = createSlice({
   name: 'cart',
-  initialState: {
-    cart: initialState
-  },
+  initialState,
   reducers: {
      addToCart: (state, action) => {
-      const itemInCart = state.cart.find((item: any) => item.id === action.payload.id);
+      console.log("action", action);
+      
+      const itemInCart = state.find((item: any) => item.id === action.payload.id);
       if (itemInCart) {
         itemInCart.quantity++;
       } else {
-        state.cart.push({ ...action.payload, quantity: 1 });
+        state.push({ ...action.payload, quantity: 1 });
       }
     },
     incrementQuantity: (state, action) => {
-      const item = state.cart.find((item: any) => item.id === action.payload);
+      const item = state.find((item: any) => item.id === action.payload);
       if (item) {
         item.quantity++;
       }
     },
     decrementQuantity: (state, action) => {
-      const item = state.cart.find((item: any) => item.id === action.payload);
+      const item = state.find((item: any) => item.id === action.payload);
          if (item) {
         item.quantity--;
       }
-        
-       
-      
     },
     removeItem: (state, action) => {
-      const removeItem = state.cart.filter((item: any) => item.id !== action.payload);
-      state.cart = removeItem;
+      const removeItem = state.filter((item: any) => item.id !== action.payload);
+      state = removeItem;
     },
   },
 })
