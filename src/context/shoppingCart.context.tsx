@@ -1,6 +1,7 @@
-import { FC, ReactNode, useContext, createContext, useState } from "react"
+import {ReactNode, useContext, createContext, useState } from "react"
 import ShoppingDrawer from "../components/Drawer"
-import {Box, Grid ,Typography, Divider, Drawer} from '@mui/material'
+import {Drawer} from '@mui/material'
+import { useLocalStorage } from "../hooks/useLocalStorage"
 
 type ShoppingCartProviderProps = {
     children: ReactNode
@@ -31,7 +32,7 @@ export function useShoppingCart () {
 
 export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
     const [isOpen, setIsOpen] = useState(false)
-    const [cartItems, setCartItems] = useState<CartItem[]>([])
+    const [cartItems, setCartItems] = useLocalStorage<CartItem[]>("shopping-cart", [])
 
     const cartQuantity = cartItems.reduce((quantity, item)=> 
     item.quantity + quantity, 0)
