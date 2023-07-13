@@ -8,6 +8,7 @@ import { CardComponent } from "../../components/CardStore";
 
 export const StorePage: FC = () => {
     const [allDoll, setAllDoll]= useState<TypeDoll[]>([])
+    
     useEffect(()=> {
          setAllDoll(storeItems) 
     })

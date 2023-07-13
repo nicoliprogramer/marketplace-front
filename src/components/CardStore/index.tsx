@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 import { useAppDispatch } from "../../redux/hooks";
-import { addToCart, decrementQuantity, incrementQuantity, removeItem } from "../../redux/slices/cart.slice";
+import { useShoppingCart } from "../../context/shoppingCart.context";
 
 type CardProps = {
     id: number
@@ -14,14 +14,18 @@ type CardProps = {
 }
 
 export const CardComponent: FC<CardProps> = ({image, name, price, id}) => {
+    const {getItemQuantity, increaseCartQuantity, decreaseCartQuantity, removeFromCart} = useShoppingCart()
+
     let navigate = useNavigate()  
     const dispatch = useAppDispatch()
-  
-    const [count, setCount] = useState(0)
 
-     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setCount(Math.max(Number(event.target.value), 1));
-    };
+    // const [count, setCount] = useState(0)
+
+    const quantity = getItemQuantity(id)
+
+    //  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     setCount(Math.max(Number(event.target.value), 1));
+    // };
 
     
     return(
@@ -46,11 +50,10 @@ export const CardComponent: FC<CardProps> = ({image, name, price, id}) => {
       </CardActionArea>
       <CardActions>
         
-        {count === 0 ? (
+        {quantity === 0 ? (
             <Container>
             <Grid display="flex" alignItems="center" justifyContent="center" sx={{mb: 4}}>
-            <Button size="small" color="success" variant="contained" onClick={() => {setCount((prev) => prev + 1);
-            dispatch(addToCart(1))}}>   
+            <Button size="small" color="success" variant="contained" onClick={() => {increaseCartQuantity(id);}}>   
             Take to cart
             </Button>
         </Grid>
@@ -60,21 +63,18 @@ export const CardComponent: FC<CardProps> = ({image, name, price, id}) => {
             <Container sx={{mb: 3}}>
                 <ButtonGroup>
                 <Button
-                  onClick={() => {setCount((prev) => prev - 1);
-                  dispatch(decrementQuantity(1))}}
-                  disabled={count === 1}
+                  onClick={() => {decreaseCartQuantity(id);}}
+                  disabled={quantity === 1}
                 >
                <RemoveIcon fontSize="small" />
                 </Button>
-                <TextField size="small" onChange={handleChange} value={count} />
-                <Button onClick={() => {setCount((prev) => prev + 1);
-                dispatch(incrementQuantity(1))}}>
+                <TextField size="small"  value={quantity} />
+                <Button onClick={() => {increaseCartQuantity(id);}}>
                   <AddIcon fontSize="small" />
                 </Button>
                 </ButtonGroup>
                 <Grid sx={{mt: 2}} display="flex" alignItems="center" justifyContent="center">
-                <Button size="small" color="error" variant="contained" onClick={() => {setCount(0);
-                dispatch(removeItem(1))}}>
+                <Button size="small" color="error" variant="contained" onClick={() => {removeFromCart(id)}}>
                     Eliminate
                 </Button>
                 </Grid>

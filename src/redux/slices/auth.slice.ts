@@ -15,9 +15,12 @@ export const login = createAsyncThunk(
     if(response.status === 200 || response.status === 201){
         console.log("Usuario valido", response.data);
         localStorage.setItem("token", response.data.token)
-    }else{
-        console.log("Error", response);
-
+    }
+    else if(response.status === 400){
+            console.log("Error");
+    }
+    else{
+        console.log("Error");
     }
   }
 );
@@ -30,8 +33,7 @@ export const authSlice = createSlice({
   extraReducers: builder  =>{
       builder
       .addCase(login.fulfilled,(state: any,action: any) => {
-        console.log("asdsad", action);
-        
+        console.log("action", action);
       })
   },
 })

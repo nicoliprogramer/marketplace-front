@@ -6,6 +6,8 @@ import { LoginValidate } from "../../utils/validateForm";
 import {useNavigate} from "react-router-dom"
 import { useAppDispatch } from "../../redux/hooks";
 import { login } from "../../redux/slices/auth.slice";
+import Swal from 'sweetalert2'
+
 type LoginType = { 
     username: string,
     password: string
@@ -32,10 +34,16 @@ export const LoginPage: FC<{}> = () => {
         e.preventDefault()
         LoginValidate.validate(loginData).then(() => {
             dispatch(login(loginData))
-        // getSuccess(JSON.stringify(loginData))
+            getSuccess(JSON.stringify(loginData));
         }).catch(error => {
-            getError(error.message)
-        })
+             Swal.fire({
+                title: 'Error!',
+                text: 'fill in the required fields',
+                icon: 'error',
+                confirmButtonText: 'Understand!'
+              })
+            getError(error.message)}
+        )
     }
 
     return (
