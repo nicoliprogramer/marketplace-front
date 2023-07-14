@@ -18,7 +18,7 @@ export const LoginPage: FC<{}> = () => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
 
-    const {getError, getSuccess} = useNotification()
+    const {getError} = useNotification()
 
 
     const [loginData, setLoginData] = useState<LoginType>({
@@ -34,7 +34,6 @@ export const LoginPage: FC<{}> = () => {
         e.preventDefault()
         LoginValidate.validate(loginData).then(() => {
             dispatch(login(loginData))
-            getSuccess(JSON.stringify(loginData));
         }).catch(error => {
              Swal.fire({
                 title: 'Error!',
