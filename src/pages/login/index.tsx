@@ -5,7 +5,7 @@ import { useNotification } from "../../context/notification.context";
 import { LoginValidate } from "../../utils/validateForm";
 import {useNavigate} from "react-router-dom"
 import { useAppDispatch } from "../../redux/hooks";
-import { login } from "../../redux/slices/auth.slice";
+import { signIn } from "../../redux/slices/auth.slice";
 import Swal from 'sweetalert2'
 
 type LoginType = { 
@@ -33,7 +33,7 @@ export const LoginPage: FC<{}> = () => {
     const handleSubmit = (e: React.FormEvent<HTMLInputElement>) => {
         e.preventDefault()
         LoginValidate.validate(loginData).then(() => {
-            dispatch(login(loginData))
+            dispatch(signIn(loginData))
         }).catch(error => {
              Swal.fire({
                 title: 'Error!',
@@ -53,7 +53,7 @@ export const LoginPage: FC<{}> = () => {
                         <Typography sx={{mt:1, mb:1}} variant="h4">Log in</Typography>
                         <Box component="form" onSubmit={handleSubmit}>
                             <Stack spacing={2}>
-                                <TextField name="username" margin="normal" type="text" fullWidth label="email" sx={{mt:2, mb:1.5}} onChange={dataLogin}/>
+                                <TextField name="username" margin="normal" type="text" fullWidth label="username" sx={{mt:2, mb:1.5}} onChange={dataLogin}/>
                                 <TextField name="password" margin="normal" type="password" fullWidth label="password"sx={{mt:1.5, mb:1.5}} onChange={dataLogin}/>
                             </Stack>
                             <Typography sx={{mt:2.5, mb:1}} fontSize="12px" variant="body2"><Link href="/register">Haven't created an account? Enter here.</Link></Typography>
