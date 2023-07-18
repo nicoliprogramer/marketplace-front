@@ -5,12 +5,13 @@ import Swal from 'sweetalert2'
 export interface AuthProps {
     username:     string;
     email:    string;
+    token: string;
 }
 
-const initialState : AuthProps = {username: "", email: ""}
+const initialState : AuthProps = {username: "", email: "", token: ""}
 
 export const signIn = createAsyncThunk(
-  'auth/LOGIN',
+  'auth/SIGN_IN',
   async (body: any, {dispatch}: any): Promise<void> => {
     try {
       const response = await axiosBack.post("/users/login", body)
@@ -22,8 +23,9 @@ export const signIn = createAsyncThunk(
                 showConfirmButton: false,
                 timer: 1400
               })
-      
+              
         localStorage.setItem("token", response.data.token)
+        return response.data.token
     }
     } catch (error) {
           const err:any=error;
@@ -34,13 +36,14 @@ export const signIn = createAsyncThunk(
                 icon: 'warning',
                 confirmButtonText: 'Understand!'
               })
+              throw new Error("User not found")
           }
     }
     }
 );
 
 export const signUp = createAsyncThunk(
-  'auth/REGISTER',
+  'auth/SIGN_UP',
   async (body: any, {dispatch}: any): Promise<void> => {
     try {
       const response = await axiosBack.post("/users/register", body)
@@ -54,6 +57,7 @@ export const signUp = createAsyncThunk(
               })
       
         localStorage.setItem("token", response.data.token)
+        return response.data.token
     }
     } catch (error) {
           const err:any=error;
@@ -64,6 +68,7 @@ export const signUp = createAsyncThunk(
                 icon: 'warning',
                 confirmButtonText: 'Understand!'
               })
+              throw new Error("User not found")
           }
     }
     }
@@ -77,7 +82,16 @@ export const authSlice = createSlice({
   extraReducers: builder  =>{
       builder
       .addCase(signIn.fulfilled,(state: any,action: any) => {
-        console.log("action", action);
+        state.token = action.payload
+      })
+      .addCase(signIn.rejected,(state: any,action: any) => {
+        state.token = ""
+      })
+      .addCase(signUp.fulfilled,(state: any,action: any) => {
+        state.token = action.payload
+      })
+      .addCase(signUp.rejected,(state: any,action: any) => {
+        state.token = ""
       })
   },
 })

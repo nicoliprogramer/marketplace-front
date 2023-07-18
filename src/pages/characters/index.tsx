@@ -13,7 +13,7 @@ export const CharactersPage: FC = () => {
 
     useEffect(() => {
             setLoading(true)
-            characters.getAll({page}).then((r)=> {
+            characters.getAll({page}).then((r)=> { //replace dispatch,  read from redux
                 setCount(r.data.info.pages);
                 setAllCharacters(r.data.results);
                 setTimeout(() => setLoading(false), 1000)     

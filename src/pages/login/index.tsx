@@ -1,10 +1,10 @@
-import  React from "react";
+import  React, { useEffect } from "react";
 import { useState, FC} from "react";
 import { Container, Button, Grid, Paper, Box, Typography, TextField, Stack, Link} from "@mui/material";
 import { useNotification } from "../../context/notification.context";
 import { LoginValidate } from "../../utils/validateForm";
 import {useNavigate} from "react-router-dom"
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { signIn } from "../../redux/slices/auth.slice";
 import Swal from 'sweetalert2'
 
@@ -17,9 +17,10 @@ export const LoginPage: FC<{}> = () => {
 
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
-
     const {getError} = useNotification()
+    
 
+    const {token} = useAppSelector((state): any => state.auth)
 
     const [loginData, setLoginData] = useState<LoginType>({
         username: "",
@@ -44,6 +45,13 @@ export const LoginPage: FC<{}> = () => {
             getError(error.message)}
         )
     }
+
+    useEffect(()=> {
+        console.log("token", token);
+      if(token) {
+        navigate("/")
+      }
+    }, [token])
 
     return (
         <Container maxWidth="sm">

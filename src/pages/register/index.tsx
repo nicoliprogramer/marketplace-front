@@ -1,12 +1,13 @@
-import { Container, Button, Grid, Paper, Box, Typography, TextField, Stack, Divider, Link, FormControlLabel, FormGroup, FormHelperText } from "@mui/material";
+import { Container, Grid, Paper, Box, Typography, TextField, Stack, Divider, Link, FormControlLabel, FormGroup, FormHelperText } from "@mui/material";
 import { useForm, SubmitHandler } from 'react-hook-form';
 import React, { useState, FC, useEffect} from "react";
 import { literal, object, string, TypeOf } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoadingButton } from '@mui/lab';
 import Checkbox from '@mui/material/Checkbox';
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { signUp } from "../../redux/slices/auth.slice";
+import { useNavigate } from "react-router-dom";
 
 const registerSchema = object({
   username: string()
@@ -37,12 +38,14 @@ type RegisterType = {
 export const RegisterPage: FC<{}> = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const [registerData, setRegisterData] = useState<RegisterType>({
         username: "",
         email: "",
         password: ""
     })
 
+  const {token} = useAppSelector((state): any => state.auth)
 
     const {
     register,
@@ -57,7 +60,10 @@ export const RegisterPage: FC<{}> = () => {
     if (isSubmitSuccessful) {
       reset();
     }
-  }, [isSubmitSuccessful, reset]);
+     if(token) {
+        navigate("/")
+      }
+  }, [isSubmitSuccessful, reset, token]);
 
   const dataRegister = (e: React.ChangeEvent<HTMLInputElement>) => {
       setRegisterData({...registerData, [e.target.name]: e.target.value})
