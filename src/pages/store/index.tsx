@@ -15,8 +15,9 @@ export const StorePage: FC = () => {
 
     return (
                 <>
-                    <HeaderComponent title="Store" description="Buy a present"
-                    />
+                    <Grid sx={{mt: 4, mb:10}}>
+                        <HeaderComponent title="Store" description="Buy a present"/>
+                    </Grid>
                     <Container maxWidth="xl">
                         <div>
                             {

@@ -29,10 +29,11 @@ export const CharactersPage: FC = () => {
 
     return (
         <Container maxWidth="xl">
-            <HeaderComponent title="Hola mundillo" description="Estas en un buen lugar" element={<Button fullWidth variant="contained">PRESS</Button>}
-            />
+            <Grid sx={{mt: 4, mb:10}}>
+            <HeaderComponent title="All characters" description="Have their share"/>
+            </Grid>
             {loading ? (
-                <Box sx={{display: "flex", justifyContent: "left", mt: 4}}>
+                <Box sx={{display: "flex", justifyContent: "left"}}>
                     <CircularProgress/>
                 </Box>
             ) :

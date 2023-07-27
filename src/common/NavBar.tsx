@@ -23,7 +23,6 @@ export const NavBar: FC<{}> = () => {
                                 <Stack direction="row" spacing={2}>
                                     <Button variant="contained" onClick={()=>{navigate("/")}}>Home</Button>
                                     <Button variant="contained" onClick={()=>{navigate("/characters")}}>characters</Button>
-                                    <Button variant="contained" onClick={()=>{navigate("/episodes")}}>episodes</Button>
                                     <Button variant="contained" onClick={()=>{navigate("/store")}}>Store</Button>
                                     <Button
                                         onClick={openCart}

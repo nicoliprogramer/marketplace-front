@@ -6,7 +6,7 @@ export const HomePage: FC = () => {
         
         <Box sx={{width: "100%"}}>
             <Container maxWidth="xl">
-                <Grid sx={{mt:2}}container columnSpacing={1} display="flex" justifyContent="center" alignItems="center">
+                <Grid sx={{mt:8}}container columnSpacing={1} display="flex" justifyContent="center" alignItems="center">
                     <Grid item xs={6}>
                         <Typography variant="h2">Welcome to Rick and Morty</Typography>
                         <Divider sx={{mb:6}}/>

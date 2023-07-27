@@ -14,5 +14,4 @@ export const PrivateRoute: React.FC<Props> = ({ component: RouteComponent }) => 
   if(!auth) {
     return <AccessDenied/>
   }
-  
 }
