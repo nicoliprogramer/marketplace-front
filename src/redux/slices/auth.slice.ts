@@ -14,7 +14,7 @@ export const signIn = createAsyncThunk(
   'auth/SIGN_IN',
   async (body: any, {dispatch}: any): Promise<void> => {
     try {
-      const response = await axiosBack.post("/users/login", body)
+      const response = await axiosBack.post("/auth/login", body)
     if(response.status === 200 || response.status === 201){
         Swal.fire({
                 title: 'Bienvenido!',
