@@ -2,6 +2,6 @@ export interface TypeDoll{
     id:       number;
     name:     string;
     image:    string;
-    price: number;
+    price: {s:number, e: number, d:[number]};
 }
 

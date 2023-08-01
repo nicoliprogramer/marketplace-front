@@ -13,8 +13,9 @@ export const CharactersPage: FC = () => {
 
     useEffect(() => {
             setLoading(true)
-            characters.getAll({page}).then((r)=> { //replace dispatch,  read from redux
+            characters.getAll({page}).then((r)=> {
                 setCount(r.data.info.pages);
+                console.log("r.data.results", r.data.results);
                 setAllCharacters(r.data.results);
                 setTimeout(() => setLoading(false), 1000)     
             }).catch((e)=> {

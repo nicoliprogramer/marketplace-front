@@ -1,10 +1,10 @@
 import { Card, CardMedia, CardContent, Typography, CardActions, Button, CardActionArea, Grid, TextField, ButtonGroup, Container, Divider} from "@mui/material";
-import React, {FC, useState} from "react";
-import { useNavigate } from "react-router-dom";
+import {FC} from "react";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
-import { useAppDispatch } from "../../redux/hooks";
 import { useShoppingCart } from "../../context/shoppingCart.context";
+import { formatCurrency } from "../../utils/formatCurrency";
+
 
 type CardProps = {
     id: number
@@ -16,18 +16,9 @@ type CardProps = {
 export const CardComponent: FC<CardProps> = ({image, name, price, id}) => {
     const {getItemQuantity, increaseCartQuantity, decreaseCartQuantity, removeFromCart} = useShoppingCart()
 
-    let navigate = useNavigate()  
-    const dispatch = useAppDispatch()
-
-    // const [count, setCount] = useState(0)
-
     const quantity = getItemQuantity(id)
 
-    //  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    //     setCount(Math.max(Number(event.target.value), 1));
-    // };
 
-    
     return(
         
     <Card sx={{ maxWidth: 345, mb: 1 }} >
@@ -44,7 +35,7 @@ export const CardComponent: FC<CardProps> = ({image, name, price, id}) => {
           </Typography>
           <Divider />
           <Typography variant="body2" color="text.secondary" mt={1} mb={-1}>
-            ${price}
+            ${formatCurrency(price)}
           </Typography>
         </CardContent>
       </CardActionArea>
