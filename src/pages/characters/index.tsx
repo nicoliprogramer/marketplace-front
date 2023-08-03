@@ -1,4 +1,4 @@
-import { Container, Button, Grid,Box, CircularProgress, Pagination } from "@mui/material";
+import { Grid,Box, CircularProgress, Pagination} from "@mui/material";
 import { CardComponent, HeaderComponent } from "../../components";
 import { characters } from "../../api/characters";
 import { TypeCharacter } from "./interface/character.interface";
@@ -29,35 +29,39 @@ export const CharactersPage: FC = () => {
         }
 
     return (
-        <Container maxWidth="xl">
-            <Grid sx={{mt: 4, mb:10}}>
-            <HeaderComponent title="All characters" description="Have their share"/>
-            </Grid>
+        <>
             {loading ? (
-                <Box sx={{display: "flex", justifyContent: "left"}}>
+                <Box sx={{display: "flex", justifyContent: "center", mt: 4}}>
                     <CircularProgress/>
                 </Box>
             ) :
-            <>
-            <div>
-                {
-                    allCharacters?.length !== 0 ? (
-                        <Grid sx={{my: 2}}container spacing={2} direction="row">
-                            {allCharacters?.map((character) => (
-                                <Grid item xs={2}>
-                                    <CardComponent id={character.id} key={character.id} image={character.image} name={character.name} status={character.status} species={character.species}/>
-                                </Grid>
-                            ))}
-                        </Grid>
-                    ) : ""
-                }
-            </div>
-            <Box sx={{width: "100%", display: "flex", justifyContent: "center"}}>
-            <Pagination variant="outlined" color="primary" count={count} page={page} onChange={handleChange} sx={{mb: 3}} size="large"/>
-            </Box>
-            </>
-               
-            } 
-        </Container>
+            <Grid container>
+                <Grid item sx={{mt: 4, mb:10}} xs={3} sm={12}>
+                <HeaderComponent title="All characters" description="Have their share"/>
+                </Grid>
+                <>
+                <div>
+                    {
+                        allCharacters?.length !== 0 ? (
+                            <Grid sx={{my: 2}}container spacing={2} direction="row">
+                                {allCharacters?.map((character) => (
+                                    <Grid item xs={6} md={2} sm={4}>
+                                        <CardComponent id={character.id} key={character.id} image={character.image} name={character.name} status={character.status} species={character.species}/>
+                                    </Grid>
+                                ))}
+                            </Grid>
+                        ) : ""
+                    }
+                </div>
+                <Box sx={{width: "100%", display: "flex", justifyContent: "center"}}>
+                <Pagination variant="outlined" color="primary" count={count} page={page} onChange={handleChange} sx={{mb: 3}} size="large"/>
+                </Box>
+                </>
+                
+                
+            </Grid>
+        }
+        </>
     )
+    
 }

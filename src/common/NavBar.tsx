@@ -11,16 +11,16 @@ export const NavBar: FC<{}> = () => {
    const {openCart, cartQuantity} = useShoppingCart()
 
     return(
-        <Box sx={{flexGrow:1}}>
+        <Box sx={{flexGrow:2}}>
             <AppBar position="sticky">
                 <Toolbar>
                     <Container maxWidth="xl">
                         <Grid container direction="row" justifyContent="space-between" alignItems="center">
-                            <Grid item>
+                            <Grid flex={1} p={2} sx={{display: {xs: "center" ,sm: "block"}}} justifyContent="center">
                             <Typography>Rick and Morty</Typography>
                             </Grid>
-                            <Grid item>
-                                <Stack direction="row" spacing={2}>
+                            <Grid item xs={12} md={5}>
+                                <Stack direction="row" justifyContent="space-evenly">
                                     <Button variant="contained" onClick={()=>{navigate("/")}}>Home</Button>
                                     <Button variant="contained" onClick={()=>{navigate("/characters")}}>characters</Button>
                                     <Button variant="contained" onClick={()=>{navigate("/store")}}>Store</Button>

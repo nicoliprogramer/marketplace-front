@@ -34,9 +34,9 @@ export const CharacterPage: FC = () => {
             ) :
         <Box sx={{width: "100%"}}>
             <Container maxWidth="xl">
-                <Grid sx={{mt:2}}container columnSpacing={2}>
-                    <Grid item xs={6}>
-                        <Typography variant="h1">{character?.name}</Typography>
+                <Grid sx={{mt:1}}container columnSpacing={2}>
+                    <Grid item xs={6} md={6} mt={2}>
+                        <Typography variant="h2">{character?.name}</Typography>
                         <Divider/>
                         <Typography variant="h6">{character?.gender}</Typography>
                         <Box sx={{mt: 2}}>
@@ -44,12 +44,10 @@ export const CharacterPage: FC = () => {
                         </Box>
                         
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} md={6} mt={2}>
                         <img src={character?.image} style={{width:"100%",borderRadius:"0.5"}}/>
                     </Grid>
                 </Grid>
-                
-                
             </Container>
         </Box>
         }
